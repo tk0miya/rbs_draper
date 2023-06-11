@@ -3,6 +3,10 @@ module RbsDraper
     attr_accessor name: String
     attr_accessor signature_root_dir: Pathname
 
+    @name: String
+    @rbs_builder: RBS::DefinitionBuilder
+    @signature_root_dir: Pathname
+
     def initialize: (name: String) -> void
                   | (name: String) { (self) -> void } -> void
     def define_setup_task: () -> void
