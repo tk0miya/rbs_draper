@@ -6,6 +6,9 @@ module RbsDraper
       attr_reader klass: Class
       attr_reader rbs_builder: RBS::DefinitionBuilder
 
+      @decorated_class: RBS::Definition
+      @user_defined_class: RBS::Definition
+
       def initialize: (Class klass, RBS::DefinitionBuilder rbs_builder) -> void
       def generate: () -> String?
 
