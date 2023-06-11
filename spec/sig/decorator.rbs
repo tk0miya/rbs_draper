@@ -1,0 +1,7 @@
+class Account
+  def meth: () -> void
+end
+
+class Article
+  def meth: () -> void
+end
