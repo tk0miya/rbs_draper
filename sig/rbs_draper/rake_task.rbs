@@ -1,5 +1,5 @@
 module RbsDraper
-  class RbsTask < Rake::TaskLib
+  class RakeTask < Rake::TaskLib
     attr_accessor name: String
     attr_accessor signature_root_dir: Pathname
 
