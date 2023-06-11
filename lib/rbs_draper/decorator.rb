@@ -39,10 +39,9 @@ module RbsDraper
       def header
         module_defs = module_names.map { |module_name| "module #{module_name}" }
 
-        superclass_name = RbsRails::Util.module_name(klass.superclass)
         class_name = klass.name.split("::").last
-        class_def = if superclass_name.present?
-                      "class #{class_name} < #{superclass_name}"
+        class_def = if klass.superclass
+                      "class #{class_name} < #{klass.superclass.name}"
                     else
                       "class #{class_name}"
                     end
