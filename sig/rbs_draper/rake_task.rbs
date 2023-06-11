@@ -1,0 +1,18 @@
+module RbsDraper
+  class RbsTask < Rake::TaskLib
+    attr_accessor name: String
+    attr_accessor signature_root_dir: Pathname
+
+    def initialize: (name: String) -> void
+                  | (name: String) { (self) -> void } -> void
+    def define_setup_task: () -> void
+    def define_clean_task: () -> void
+    def define_base_class_generate_task: () -> void
+    def define_decoratables_generate_task: () -> void
+    def define_decorators_generate_task: () -> void
+
+    private
+
+    def rbs_builder: () -> RBS::DefinitionBuilder
+  end
+end
