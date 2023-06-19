@@ -24,7 +24,7 @@ RSpec.describe RbsDraper::Decoratable do
     let(:klass) { Account }
     let(:expected) do
       <<~RBS
-        class Account < Object
+        class Account < ::Object
           def decorate: () -> AccountDecorator
         end
       RBS

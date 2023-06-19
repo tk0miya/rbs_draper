@@ -5,6 +5,7 @@ module RbsDraper
 
     class Generator
       attr_reader klass: Class
+      attr_reader klass_name: String
 
       def initialize: (Class klass) -> void
       def generate: () -> String
