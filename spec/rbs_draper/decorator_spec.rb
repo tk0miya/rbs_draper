@@ -36,7 +36,7 @@ RSpec.describe RbsDraper::Decorator do
       let(:klass) { AccountDecorator }
       let(:expected) do
         <<~RBS
-          class AccountDecorator < Draper::Decorator
+          class AccountDecorator < ::Draper::Decorator
             def object: () -> Account
           end
         RBS
@@ -51,7 +51,7 @@ RSpec.describe RbsDraper::Decorator do
       let(:klass) { ArticleDecorator }
       let(:expected) do
         <<~RBS
-          class ArticleDecorator < Draper::Decorator
+          class ArticleDecorator < ::Draper::Decorator
             def object: () -> Article
 
             def meth: () -> void

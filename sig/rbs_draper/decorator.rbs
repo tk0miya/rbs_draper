@@ -4,6 +4,7 @@ module RbsDraper
 
     class Generator
       attr_reader klass: Class
+      attr_reader klass_name: String
       attr_reader rbs_builder: RBS::DefinitionBuilder
 
       @decorated_class: RBS::Definition

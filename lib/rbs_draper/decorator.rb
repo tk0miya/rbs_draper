@@ -11,10 +11,11 @@ module RbsDraper
     end
 
     class Generator
-      attr_reader :klass, :rbs_builder
+      attr_reader :klass, :klass_name, :rbs_builder
 
       def initialize(klass, rbs_builder)
         @klass = klass
+        @klass_name = RbsRails::Util.module_name(klass)
         @rbs_builder = rbs_builder
       end
 
@@ -37,16 +38,23 @@ module RbsDraper
       end
 
       def header
-        module_defs = module_names.map { |module_name| "module #{module_name}" }
+        namespace = +""
+        klass_name.split("::").map do |mod_name|
+          namespace += "::#{mod_name}"
+          mod_object = Object.const_get(namespace)
+          case mod_object
+          when Class
+            # @type var superclass: Class
+            superclass = _ = mod_object.superclass
+            superclass_name = RbsRails::Util.module_name(superclass)
 
-        class_name = klass.name.split("::").last
-        class_def = if klass.superclass
-                      "class #{class_name} < #{klass.superclass.name}"
-                    else
-                      "class #{class_name}"
-                    end
-
-        (module_defs + [class_def]).join("\n")
+            "class #{mod_name} < ::#{superclass_name}"
+          when Module
+            "module #{mod_name}"
+          else
+            raise "unreachable"
+          end
+        end.join("\n")
       end
 
       def method_decls
