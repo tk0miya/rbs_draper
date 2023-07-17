@@ -85,8 +85,11 @@ module RbsDraper
       def delegated_methods
         return [] unless klass.ancestors.include? ::Draper::AutomaticDelegation
 
-        decorated_class.methods.keys.sort.filter_map do |name|
-          method = decorated_class.methods[name]
+        decorated_klass = decorated_class
+        return [] unless decorated_klass
+
+        decorated_klass.methods.keys.sort.filter_map do |name|
+          method = decorated_klass.methods[name]
           next if %w[::Object ::BasicObject ::Kernel].include? method.defined_in.to_s
 
           [name, method] if method.accessibility == :public
