@@ -3,6 +3,7 @@ PATH
   specs:
     rbs_draper (0.1.2)
       draper
+      fileutils
       rbs_rails
 
 GEM
