@@ -1,16 +1,16 @@
 module RbsDraper
   module Decorator
-    def self.class_to_rbs: (Class klass, RBS::DefinitionBuilder rbs_builder) -> String?
+    def self.class_to_rbs: (singleton(Draper::Decorator) klass, RBS::DefinitionBuilder rbs_builder) -> String?
 
     class Generator
-      attr_reader klass: Class
+      attr_reader klass: singleton(Draper::Decorator)
       attr_reader klass_name: String
       attr_reader rbs_builder: RBS::DefinitionBuilder
 
       @decorated_class: RBS::Definition
       @user_defined_class: RBS::Definition
 
-      def initialize: (Class klass, RBS::DefinitionBuilder rbs_builder) -> void
+      def initialize: (singleton(Draper::Decorator) klass, RBS::DefinitionBuilder rbs_builder) -> void
       def generate: () -> String?
 
       private
@@ -21,7 +21,7 @@ module RbsDraper
       def footer: () -> String
       def module_names: () -> Array[String]
       def decorated_class: () -> RBS::Definition?
-      def delegated_methods: () -> Array[[Symbol, RBS::Definition]]
+      def delegated_methods: () -> Array[[Symbol, RBS::Definition::Method]]
       def user_defined_class: () -> RBS::Definition?
     end
   end

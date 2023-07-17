@@ -1,5 +1,6 @@
 module Draper
   module Decoratable
+    def self.decorator_class: () -> singleton(Decorator)
     def decorated?: () -> bool
     def decorated_with?: (untyped decorator_class) -> bool
   end

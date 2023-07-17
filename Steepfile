@@ -3,7 +3,7 @@
 D = Steep::Diagnostic
 
 target :lib do
-  signature "sig"
+  signature "sig", "lib/rbs_draper/sig"
 
   check "lib"
 
