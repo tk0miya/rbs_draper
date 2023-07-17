@@ -57,7 +57,7 @@ module RbsDraper
         Rails.application.eager_load!
 
         RbsDraper::Decoratable.all.each do |klass|
-          path = signature_root_dir / "app/models/#{klass.name.underscore}.rbs"
+          path = signature_root_dir / "app/models/#{klass.name.to_s.underscore}.rbs"
           path.dirname.mkpath
           rbs = RbsDraper::Decoratable.class_to_rbs(klass)
           path.write rbs if rbs

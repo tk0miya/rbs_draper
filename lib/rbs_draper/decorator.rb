@@ -30,7 +30,7 @@ module RbsDraper
       def klass_decl
         <<~RBS
           #{header}
-          def object: () -> #{klass.name.sub(/Decorator$/, "")}
+          def object: () -> #{klass.name.to_s.sub(/Decorator$/, "")}
 
           #{method_decls}
           #{footer}
@@ -76,7 +76,7 @@ module RbsDraper
       end
 
       def decorated_class
-        type_name = RBS::TypeName(klass.name.sub(/Decorator$/, "")).absolute!
+        type_name = RBS::TypeName(klass.name.to_s.sub(/Decorator$/, "")).absolute!
         @decorated_class ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil

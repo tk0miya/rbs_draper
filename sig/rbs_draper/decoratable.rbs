@@ -1,13 +1,13 @@
 module RbsDraper
   module Decoratable
-    def self.all: () -> Array[Class]
-    def self.class_to_rbs: (Class klass) -> String
+    def self.all: () -> Array[singleton(Draper::Decoratable)]
+    def self.class_to_rbs: (singleton(Draper::Decoratable) klass) -> String
 
     class Generator
-      attr_reader klass: Class
+      attr_reader klass: singleton(Draper::Decoratable)
       attr_reader klass_name: String
 
-      def initialize: (Class klass) -> void
+      def initialize: (singleton(Draper::Decoratable) klass) -> void
       def generate: () -> String
 
       private
