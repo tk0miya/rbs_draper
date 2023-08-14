@@ -2,7 +2,7 @@
 sources:
 - type: git
   name: ruby/gem_rbs_collection
-  revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+  revision: 8a678b2ec20e9d594055f53745399814e3a887dc
   remote: https://github.com/ruby/gem_rbs_collection.git
   repo_dir: gems
 path: ".gem_rbs_collection"
@@ -16,7 +16,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: actionview
@@ -24,7 +24,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activemodel
@@ -32,7 +32,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activerecord
@@ -40,7 +40,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activesupport
@@ -48,7 +48,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: ast
@@ -56,9 +56,13 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: base64
+  version: '0'
+  source:
+    type: stdlib
 - name: cgi
   version: '0'
   source:
@@ -68,7 +72,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: date
@@ -84,7 +88,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: json
@@ -112,7 +116,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: optparse
@@ -124,7 +128,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: pathname
@@ -136,7 +140,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rails-dom-testing
@@ -144,7 +148,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: railties
@@ -152,7 +156,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rainbow
@@ -160,7 +164,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rbs
@@ -180,7 +184,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 965029a810c265f39b2b85f8c0edc160e5275e3d
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: securerandom
