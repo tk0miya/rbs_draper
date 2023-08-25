@@ -28,9 +28,11 @@ module RbsDraper
       private
 
       def klass_decl
+        object_name = klass.name.to_s.sub(/Decorator$/, "")
         <<~RBS
           #{header}
-          def object: () -> #{klass.name.to_s.sub(/Decorator$/, "")}
+          def object: () -> #{object_name}
+          def #{object_name.underscore}: () -> #{object_name}
 
           #{method_decls}
           #{footer}

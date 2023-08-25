@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     rbs_draper (0.1.3)
+      activesupport
       draper
       fileutils
       rbs

@@ -38,6 +38,7 @@ RSpec.describe RbsDraper::Decorator do
         <<~RBS
           class AccountDecorator < ::Draper::Decorator
             def object: () -> Account
+            def account: () -> Account
           end
         RBS
       end
@@ -53,6 +54,7 @@ RSpec.describe RbsDraper::Decorator do
         <<~RBS
           class ArticleDecorator < ::Draper::Decorator
             def object: () -> Article
+            def article: () -> Article
 
             def meth: () -> void
           end
