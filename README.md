@@ -7,18 +7,12 @@ rbs_draper is a generator for decorators using [Draper](https://github.com/drape
 Add a new entry to your Gemfile and run `bundle install`:
 
     group :development do
-      gem 'rbs_draper'
+      gem 'rbs_draper', require: false
     end
 
 After the installation, please run rake task generator:
 
     bundle exec rails g rbs_draper:install
-
-Additionally, it would be better to add the following entry to your `rbs_collection.yml`:
-
-    gems:
-      - name: rbs_draper
-        ignore: true
 
 ## Usage
 
