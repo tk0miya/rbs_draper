@@ -43,6 +43,8 @@ module RbsDraper
     def define_base_class_generate_task
       desc "Generate RBS files for base classes"
       task("#{name}:base_class:generate": :environment) do
+        require "rbs_draper"  # load RbsDraper lazily
+
         signature_root_dir.mkpath
 
         basedir = Pathname(__FILE__).dirname
@@ -54,6 +56,8 @@ module RbsDraper
     def define_decoratables_generate_task
       desc "Generate RBS files for decoratable models"
       task("#{name}:decoratables:generate": :environment) do
+        require "rbs_draper"  # load RbsDraper lazily
+
         Rails.application.eager_load!
 
         RbsDraper::Decoratable.all.each do |klass|
