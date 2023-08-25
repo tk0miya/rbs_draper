@@ -17,6 +17,7 @@ module RbsDraper
 
       def klass_decl: () -> String
       def header: () -> String
+      def object_method_decls: () -> String
       def method_decls: () -> String?
       def footer: () -> String
       def module_names: () -> Array[String]

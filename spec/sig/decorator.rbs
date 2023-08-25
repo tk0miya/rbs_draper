@@ -5,3 +5,8 @@ end
 class Article
   def meth: () -> void
 end
+
+module Mod
+  class Account
+  end
+end
