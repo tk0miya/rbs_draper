@@ -28,11 +28,9 @@ module RbsDraper
       private
 
       def klass_decl
-        object_name = klass.name.to_s.sub(/Decorator$/, "")
         <<~RBS
           #{header}
-          def object: () -> #{object_name}
-          def #{object_name.underscore}: () -> #{object_name}
+          #{object_method_decls}
 
           #{method_decls}
           #{footer}
@@ -57,6 +55,18 @@ module RbsDraper
             raise "unreachable"
           end
         end.join("\n")
+      end
+
+      def object_method_decls
+        object_name = klass_name.to_s.sub(/Decorator$/, "")
+        if object_name.include?("::")
+          "def object: () -> #{object_name}"
+        else
+          <<~RBS
+            def object: () -> #{object_name}
+            def #{object_name.underscore}: () -> #{object_name}
+          RBS
+        end
       end
 
       def method_decls

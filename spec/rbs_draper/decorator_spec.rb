@@ -22,6 +22,11 @@ class ArticleDecorator < Draper::Decorator
   delegate_all
 end
 
+module Mod
+  class AccountDecorator < Draper::Decorator
+  end
+end
+
 RSpec.describe RbsDraper::Decorator do
   describe ".class_to_rbs" do
     subject { described_class.class_to_rbs(klass, rbs_builder) }
@@ -62,6 +67,23 @@ RSpec.describe RbsDraper::Decorator do
       end
 
       it "Generate type definition with additional methods" do
+        expect(subject).to eq expected
+      end
+    end
+
+    context "When a decorater having deep namespace given" do
+      let(:klass) { Mod::AccountDecorator }
+      let(:expected) do
+        <<~RBS
+          module Mod
+            class AccountDecorator < ::Draper::Decorator
+              def object: () -> Mod::Account
+            end
+          end
+        RBS
+      end
+
+      it "Generate type definition without additional self-reference method" do
         expect(subject).to eq expected
       end
     end
