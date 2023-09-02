@@ -7,7 +7,9 @@ module RbsDraper
     def create_raketask
       create_file "lib/tasks/rbs_draper.rake", <<~RUBY
         begin
-          require 'rbs_draper/rake_task'
+          # frozen_string_literal: true
+
+          require "rbs_draper/rake_task"
 
           RbsDraper::RakeTask.new do |task|
             # If you have decorators having different names from models, you can specify the mapping from decorator names to model names.
