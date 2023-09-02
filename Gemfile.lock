@@ -6,7 +6,6 @@ PATH
       draper
       fileutils
       rbs
-      rbs_rails
 
 GEM
   remote: https://rubygems.org/
@@ -104,9 +103,6 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rbs (3.1.3)
-    rbs_rails (0.12.0)
-      parser
-      rbs (>= 1)
     regexp_parser (2.8.1)
     request_store (1.5.1)
       rack (>= 1.4)

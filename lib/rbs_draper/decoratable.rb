@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "draper"
-require "rbs_rails"
 
 module RbsDraper
   module Decoratable
@@ -22,21 +21,24 @@ module RbsDraper
 
       def initialize(klass)
         @klass = klass
-        @klass_name = RbsRails::Util.module_name(klass)
+        @klass_name = klass.name || ""
       end
 
       def generate
-        RbsRails::Util.format_rbs klass_decl
-      end
-
-      private
-
-      def klass_decl
-        <<~RBS
+        format <<~RBS
           #{header}
           #{method_decls}
           #{footer}
         RBS
+      end
+
+      private
+
+      def format(rbs)
+        parsed = RBS::Parser.parse_signature(rbs)
+        StringIO.new.tap do |out|
+          RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
+        end.string
       end
 
       def header
@@ -48,7 +50,7 @@ module RbsDraper
           when Class
             # @type var superclass: Class
             superclass = _ = mod_object.superclass
-            superclass_name = RbsRails::Util.module_name(superclass)
+            superclass_name = superclass.name || "Object"
 
             "class #{mod_name} < ::#{superclass_name}"
           when Module

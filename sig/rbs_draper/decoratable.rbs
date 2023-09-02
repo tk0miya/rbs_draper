@@ -12,7 +12,7 @@ module RbsDraper
 
       private
 
-      def klass_decl: () -> String
+      def format: (String rbs) -> String
       def header: () -> String
       def method_decls: () -> String
       def footer: () -> String

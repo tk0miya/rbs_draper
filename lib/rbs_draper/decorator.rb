@@ -2,7 +2,6 @@
 
 require "draper"
 require "rbs"
-require "rbs_rails"
 
 module RbsDraper
   module Decorator
@@ -15,7 +14,7 @@ module RbsDraper
 
       def initialize(klass, rbs_builder, decorated_class: nil)
         @klass = klass
-        @klass_name = RbsRails::Util.module_name(klass)
+        @klass_name = klass.name || ""
         @rbs_builder = rbs_builder
         @decorated_class = decorated_class
       end
@@ -23,19 +22,22 @@ module RbsDraper
       def generate
         return if decorated_class_def.blank?
 
-        RbsRails::Util.format_rbs klass_decl
-      end
-
-      private
-
-      def klass_decl
-        <<~RBS
+        format <<~RBS
           #{header}
           #{object_method_decls}
 
           #{method_decls}
           #{footer}
         RBS
+      end
+
+      private
+
+      def format(rbs)
+        parsed = RBS::Parser.parse_signature(rbs)
+        StringIO.new.tap do |out|
+          RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
+        end.string
       end
 
       def header
@@ -47,7 +49,7 @@ module RbsDraper
           when Class
             # @type var superclass: Class
             superclass = _ = mod_object.superclass
-            superclass_name = RbsRails::Util.module_name(superclass)
+            superclass_name = superclass.name || "Object"
 
             "class #{mod_name} < ::#{superclass_name}"
           when Module
