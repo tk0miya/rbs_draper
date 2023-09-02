@@ -8,13 +8,14 @@ require "rake/tasklib"
 
 module RbsDraper
   class RakeTask < Rake::TaskLib
-    attr_accessor :name, :signature_root_dir
+    attr_accessor :name, :signature_root_dir, :mapping
 
     def initialize(name = :'rbs:draper', &block)
       super()
 
       @name = name
       @signature_root_dir = Pathname(Rails.root / "sig/draper")
+      @mapping = -> { {} }
 
       block&.call(self)
 
@@ -74,10 +75,11 @@ module RbsDraper
       task("#{name}:decorators:generate": :environment) do
         Rails.application.eager_load!
 
+        decorated_classes = mapping.call
         Draper::Decorator.descendants.each do |klass|
           path = signature_root_dir / "app/decorators/#{klass.name.underscore}.rbs"
           path.dirname.mkpath
-          rbs = RbsDraper::Decorator.class_to_rbs(klass, rbs_builder)
+          rbs = RbsDraper::Decorator.class_to_rbs(klass, rbs_builder, decorated_class: decorated_classes[klass])
           path.write rbs if rbs
         end
       end

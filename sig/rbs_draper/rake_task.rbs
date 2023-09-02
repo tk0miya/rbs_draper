@@ -2,10 +2,12 @@ module RbsDraper
   class RakeTask < Rake::TaskLib
     attr_accessor name: Symbol
     attr_accessor signature_root_dir: Pathname
+    attr_accessor mapping: ^() -> Hash[singleton(Class), singleton(Class)]
 
     @name: Symbol
     @rbs_builder: RBS::DefinitionBuilder
     @signature_root_dir: Pathname
+    @mapping: ^() -> Hash[singleton(Class), singleton(Class)]
 
     def initialize: (?Symbol name) ?{ (RakeTask) -> void } -> void
     def define_setup_task: () -> void
