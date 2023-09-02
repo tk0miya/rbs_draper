@@ -14,6 +14,13 @@ After the installation, please run rake task generator:
 
     bundle exec rails g rbs_draper:install
 
+If you have decorators having different names from models, you can specify the mapping from
+decorator names to model names in `lib/tasks/rbs_draper.rake`. For example:
+
+    RbsDraper::RakeTask.new do |task|
+      task.mapping = -> { { AdminUserDecorator: User } }
+    end
+
 ## Usage
 
 1. Run `rbs:draper:clean` at first
