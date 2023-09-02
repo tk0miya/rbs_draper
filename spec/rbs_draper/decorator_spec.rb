@@ -29,7 +29,7 @@ end
 
 RSpec.describe RbsDraper::Decorator do
   describe ".class_to_rbs" do
-    subject { described_class.class_to_rbs(klass, rbs_builder) }
+    subject { described_class.class_to_rbs(klass, rbs_builder, decorated_class: decorated_class) }
 
     let(:rbs_builder) do
       loader = RBS::EnvironmentLoader.new
@@ -39,6 +39,7 @@ RSpec.describe RbsDraper::Decorator do
 
     context 'When a decorater without "delegate_all" given' do
       let(:klass) { AccountDecorator }
+      let(:decorated_class) { nil }
       let(:expected) do
         <<~RBS
           class AccountDecorator < ::Draper::Decorator
@@ -55,6 +56,7 @@ RSpec.describe RbsDraper::Decorator do
 
     context 'When a decorater with "delegate_all" given' do
       let(:klass) { ArticleDecorator }
+      let(:decorated_class) { nil }
       let(:expected) do
         <<~RBS
           class ArticleDecorator < ::Draper::Decorator
@@ -73,6 +75,7 @@ RSpec.describe RbsDraper::Decorator do
 
     context "When a decorater having deep namespace given" do
       let(:klass) { Mod::AccountDecorator }
+      let(:decorated_class) { nil }
       let(:expected) do
         <<~RBS
           module Mod
@@ -84,6 +87,25 @@ RSpec.describe RbsDraper::Decorator do
       end
 
       it "Generate type definition without additional self-reference method" do
+        expect(subject).to eq expected
+      end
+    end
+
+    context "When decorated_class argument given" do
+      let(:klass) { ArticleDecorator }
+      let(:decorated_class) { Account }
+      let(:expected) do
+        <<~RBS
+          class ArticleDecorator < ::Draper::Decorator
+            def object: () -> Account
+            def account: () -> Account
+
+            def meth: () -> void
+          end
+        RBS
+      end
+
+      it "Generate type definition with additional methods" do
         expect(subject).to eq expected
       end
     end

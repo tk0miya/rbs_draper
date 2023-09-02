@@ -6,21 +6,22 @@ require "rbs_rails"
 
 module RbsDraper
   module Decorator
-    def self.class_to_rbs(klass, rbs_builder)
-      Generator.new(klass, rbs_builder).generate
+    def self.class_to_rbs(klass, rbs_builder, decorated_class: nil)
+      Generator.new(klass, rbs_builder, decorated_class: decorated_class).generate
     end
 
     class Generator
-      attr_reader :klass, :klass_name, :rbs_builder
+      attr_reader :klass, :klass_name, :rbs_builder, :decorated_class
 
-      def initialize(klass, rbs_builder)
+      def initialize(klass, rbs_builder, decorated_class: nil)
         @klass = klass
         @klass_name = RbsRails::Util.module_name(klass)
         @rbs_builder = rbs_builder
+        @decorated_class = decorated_class
       end
 
       def generate
-        return if decorated_class.blank?
+        return if decorated_class_def.blank?
 
         RbsRails::Util.format_rbs klass_decl
       end
@@ -58,7 +59,7 @@ module RbsDraper
       end
 
       def object_method_decls
-        object_name = klass_name.to_s.sub(/Decorator$/, "")
+        object_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
         if object_name.include?("::")
           "def object: () -> #{object_name}"
         else
@@ -87,9 +88,10 @@ module RbsDraper
         end
       end
 
-      def decorated_class
-        type_name = RBS::TypeName(klass.name.to_s.sub(/Decorator$/, "")).absolute!
-        @decorated_class ||= rbs_builder.build_instance(type_name)
+      def decorated_class_def
+        class_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
+        type_name = RBS::TypeName(class_name).absolute!
+        @decorated_class_def ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil
       end
@@ -97,7 +99,7 @@ module RbsDraper
       def delegated_methods
         return [] unless klass.ancestors.include? ::Draper::AutomaticDelegation
 
-        decorated_klass = decorated_class
+        decorated_klass = decorated_class_def
         return [] unless decorated_klass
 
         decorated_klass.methods.keys.sort.filter_map do |name|
