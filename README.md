@@ -18,7 +18,7 @@ If you have decorators having different names from models, you can specify the m
 decorator names to model names in `lib/tasks/rbs_draper.rake`. For example:
 
     RbsDraper::RakeTask.new do |task|
-      task.mapping = -> { { AdminUserDecorator: User } }
+      task.mapping = -> { { AdminUserDecorator => User } }
     end
 
 ## Usage
