@@ -1,8 +1,34 @@
 module Draper
   class Decorator
+    include Draper::ViewHelpers
+    extend Draper::ViewHelpers::ClassMethods
+
     def self.delegate_all: () -> void
     def self.decorates_association: (Symbol association, **untyped options) -> void
     def decorated?: () -> bool
     def decorated_with?: (untyped decorator_class) -> bool
+  end
+
+  class HelperProxy
+    # Note: HelperProxy behaves like ActiveView::Base via method_missing.
+    #       To support it, this type includes the sub-modules of ActiveView instead of method_missing.
+
+    include ActionView::Helpers
+    include ERB::Util
+    include ActionView::Context
+  end
+
+  module ViewHelpers
+    module ClassMethods
+      def helpers: () -> HelperProxy
+
+      alias h helpers
+    end
+
+    def helpers: () -> HelperProxy
+    def localize: (*untyped) -> String
+
+    alias h helpers
+    alias l localize
   end
 end

@@ -21,6 +21,21 @@ decorator names to model names in `lib/tasks/rbs_draper.rake`. For example:
       task.mapping = -> { { AdminUserDecorator => User } }
     end
 
+## Accessing Helpers
+
+If your decorators access to the custom helpers via `#h` method, you need to define the types
+for the custom helpers into `Draper::HelperProxy`:
+
+```ruby 
+module Draper
+  class HelperProxy
+    include MyCustomHelper
+
+    def my_custom_helper_method: (String, String) -> String
+  end
+end
+```
+
 ## Usage
 
 1. Run `rbs:draper:clean` at first
