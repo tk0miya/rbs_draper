@@ -24,6 +24,7 @@ module RbsDraper
 
         format <<~RBS
           #{header}
+          #{class_method_decls}
           #{object_method_decls}
 
           #{method_decls}
@@ -60,12 +61,21 @@ module RbsDraper
         end.join("\n")
       end
 
+      def class_method_decls
+        object_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
+        "def self.decorate: (#{object_name} object, **untyped options) -> self"
+      end
+
       def object_method_decls
         object_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
         if object_name.include?("::")
-          "def object: () -> #{object_name}"
+          <<~RBS
+            def initialize: (#{object_name} object, **untyped options) -> void
+            def object: () -> #{object_name}
+          RBS
         else
           <<~RBS
+            def initialize: (#{object_name} object, **untyped options) -> void
             def object: () -> #{object_name}
             def #{object_name.underscore}: () -> #{object_name}
           RBS
