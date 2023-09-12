@@ -111,7 +111,7 @@ module RbsDraper
       end
 
       def decorated_class_name
-        @decorated_class_name = decorated_class&.name || klass.object_class.name
+        @decorated_class_name = decorated_class&.name || klass.object_class.name.to_s
       end
 
       def delegated_methods
