@@ -24,6 +24,7 @@ module RbsDraper
 
         format <<~RBS
           #{header}
+          #{mixin_decls}
           #{class_method_decls}
           #{object_method_decls}
 
@@ -59,6 +60,10 @@ module RbsDraper
             raise "unreachable"
           end
         end.join("\n")
+      end
+
+      def mixin_decls
+        "extend Draper::Finders[#{decorated_class_name}]" if klass.singleton_class < Draper::Finders
       end
 
       def class_method_decls
@@ -106,7 +111,7 @@ module RbsDraper
       end
 
       def decorated_class_name
-        @decorated_class_name = decorated_class&.name || klass.object_class.name
+        @decorated_class_name = decorated_class&.name || klass.object_class.name.to_s
       end
 
       def delegated_methods

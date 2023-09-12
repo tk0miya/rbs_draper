@@ -30,6 +30,11 @@ module Mod
   end
 end
 
+class ArticleFindersDecorator < Draper::Decorator
+  decorates :article
+  decorates_finders
+end
+
 RSpec.describe RbsDraper::Decorator do
   describe ".class_to_rbs" do
     subject { described_class.class_to_rbs(klass, rbs_builder, decorated_class: decorated_class) }
@@ -117,6 +122,26 @@ RSpec.describe RbsDraper::Decorator do
       end
 
       it "Generate type definition with additional methods" do
+        expect(subject).to eq expected
+      end
+    end
+
+    context 'When a decorater with "delegates_finders" given' do
+      let(:klass) { ArticleFindersDecorator }
+      let(:decorated_class) { nil }
+      let(:expected) do
+        <<~RBS
+          class ArticleFindersDecorator < ::Draper::Decorator
+            extend Draper::Finders[Article]
+            def self.decorate: (Article object, **untyped options) -> self
+            def initialize: (Article object, **untyped options) -> void
+            def object: () -> Article
+            def article: () -> Article
+          end
+        RBS
+      end
+
+      it "Generate type definition extending by Draper::Finders" do
         expect(subject).to eq expected
       end
     end
