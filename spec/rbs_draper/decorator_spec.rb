@@ -43,6 +43,8 @@ RSpec.describe RbsDraper::Decorator do
       let(:expected) do
         <<~RBS
           class AccountDecorator < ::Draper::Decorator
+            def self.decorate: (Account object, **untyped options) -> self
+            def initialize: (Account object, **untyped options) -> void
             def object: () -> Account
             def account: () -> Account
           end
@@ -60,6 +62,8 @@ RSpec.describe RbsDraper::Decorator do
       let(:expected) do
         <<~RBS
           class ArticleDecorator < ::Draper::Decorator
+            def self.decorate: (Article object, **untyped options) -> self
+            def initialize: (Article object, **untyped options) -> void
             def object: () -> Article
             def article: () -> Article
 
@@ -80,6 +84,8 @@ RSpec.describe RbsDraper::Decorator do
         <<~RBS
           module Mod
             class AccountDecorator < ::Draper::Decorator
+              def self.decorate: (Mod::Account object, **untyped options) -> self
+              def initialize: (Mod::Account object, **untyped options) -> void
               def object: () -> Mod::Account
             end
           end
@@ -97,6 +103,8 @@ RSpec.describe RbsDraper::Decorator do
       let(:expected) do
         <<~RBS
           class ArticleDecorator < ::Draper::Decorator
+            def self.decorate: (Account object, **untyped options) -> self
+            def initialize: (Account object, **untyped options) -> void
             def object: () -> Account
             def account: () -> Account
 
