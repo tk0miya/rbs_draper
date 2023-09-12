@@ -9,6 +9,7 @@ module RbsDraper
       attr_reader decorated_class: singleton(Class)?
 
       @decorated_class_def: RBS::Definition
+      @decorated_class_name: String
       @user_defined_class: RBS::Definition
 
       def initialize: (singleton(Draper::Decorator) klass, RBS::DefinitionBuilder rbs_builder, ?decorated_class: singleton(Class)?) -> void
@@ -18,11 +19,13 @@ module RbsDraper
 
       def format: (String rbs) -> String
       def header: () -> String
-      def class_method_decls: () -> String
+      def mixin_decls: () -> String?
+      def class_method_decls: () -> String?
       def object_method_decls: () -> String
       def method_decls: () -> String?
       def footer: () -> String
       def module_names: () -> Array[String]
+      def decorated_class_name: () -> String
       def decorated_class_def: () -> RBS::Definition?
       def delegated_methods: () -> Array[[Symbol, RBS::Definition::Method]]
       def user_defined_class: () -> RBS::Definition?
