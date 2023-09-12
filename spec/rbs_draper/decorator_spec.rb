@@ -23,6 +23,9 @@ class ArticleDecorator < Draper::Decorator
 end
 
 module Mod
+  class Account
+  end
+
   class AccountDecorator < Draper::Decorator
   end
 end
