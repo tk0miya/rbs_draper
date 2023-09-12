@@ -18,6 +18,7 @@ module RbsDraper
 
       def format: (String rbs) -> String
       def header: () -> String
+      def class_method_decls: () -> String
       def object_method_decls: () -> String
       def method_decls: () -> String?
       def footer: () -> String
