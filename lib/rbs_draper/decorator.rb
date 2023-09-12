@@ -62,22 +62,20 @@ module RbsDraper
       end
 
       def class_method_decls
-        object_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
-        "def self.decorate: (#{object_name} object, **untyped options) -> self"
+        "def self.decorate: (#{decorated_class_name} object, **untyped options) -> self"
       end
 
       def object_method_decls
-        object_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
-        if object_name.include?("::")
+        if decorated_class_name.include?("::")
           <<~RBS
-            def initialize: (#{object_name} object, **untyped options) -> void
-            def object: () -> #{object_name}
+            def initialize: (#{decorated_class_name} object, **untyped options) -> void
+            def object: () -> #{decorated_class_name}
           RBS
         else
           <<~RBS
-            def initialize: (#{object_name} object, **untyped options) -> void
-            def object: () -> #{object_name}
-            def #{object_name.underscore}: () -> #{object_name}
+            def initialize: (#{decorated_class_name} object, **untyped options) -> void
+            def object: () -> #{decorated_class_name}
+            def #{decorated_class_name.underscore}: () -> #{decorated_class_name}
           RBS
         end
       end
@@ -101,11 +99,14 @@ module RbsDraper
       end
 
       def decorated_class_def
-        class_name = decorated_class&.name || klass.name.to_s.sub(/Decorator$/, "")
-        type_name = RBS::TypeName(class_name).absolute!
+        type_name = RBS::TypeName(decorated_class_name).absolute!
         @decorated_class_def ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil
+      end
+
+      def decorated_class_name
+        @decorated_class_name = decorated_class&.name || klass.object_class.name
       end
 
       def delegated_methods

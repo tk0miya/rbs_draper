@@ -5,6 +5,8 @@ module Draper
 
     def self.delegate_all: () -> void
     def self.decorates_association: (Symbol association, **untyped options) -> void
+    def self.object_class: () -> singleton(Class)
+    def self.object_class?: () -> bool
     def decorated?: () -> bool
     def decorated_with?: (untyped decorator_class) -> bool
   end
