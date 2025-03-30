@@ -104,7 +104,7 @@ module RbsDraper
       end
 
       def decorated_class_def
-        type_name = RBS::TypeName(decorated_class_name).absolute!
+        type_name = RBS::TypeName.parse(decorated_class_name).absolute!
         @decorated_class_def ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil
@@ -129,7 +129,7 @@ module RbsDraper
       end
 
       def user_defined_class
-        type_name = RBS::TypeName(klass.name.to_s).absolute!
+        type_name = RBS::TypeName.parse(klass.name.to_s).absolute!
         @user_defined_class ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil

@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport"
   spec.add_dependency "draper"
   spec.add_dependency "fileutils"
-  spec.add_dependency "rbs"
+  spec.add_dependency "rbs", ">= 3.8.0"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
