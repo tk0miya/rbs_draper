@@ -6,7 +6,7 @@ module RbsDraper
   module Decoratable
     def self.all
       ObjectSpace.each_object.select do |obj|
-        obj.is_a?(Class) && obj.ancestors.include?(::Draper::Decoratable) && obj.decorator_class
+        obj.is_a?(Class) && obj < ::Draper::Decoratable && obj.decorator_class
       rescue StandardError
         nil
       end
