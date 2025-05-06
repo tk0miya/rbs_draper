@@ -121,7 +121,7 @@ module RbsDraper
         return [] unless decorated_klass
 
         decorated_klass.methods.keys.sort.filter_map do |name|
-          method = decorated_klass.methods[name]
+          method = decorated_klass.methods.fetch(name)
           next if %w[::Object ::BasicObject ::Kernel].include? method.defined_in.to_s
 
           [name, method] if method.accessibility == :public
