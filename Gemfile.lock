@@ -71,8 +71,8 @@ GEM
       ruby2_keywords
     drb (2.2.3)
     erubi (1.13.1)
-    ffi (1.17.1-x86_64-darwin)
-    ffi (1.17.1-x86_64-linux-gnu)
+    ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
     fileutils (1.8.0)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
@@ -92,9 +92,9 @@ GEM
       nokogiri (>= 1.12.0)
     minitest (5.27.0)
     mutex_m (0.3.0)
-    nokogiri (1.18.10-x86_64-darwin)
+    nokogiri (1.19.2-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.10-x86_64-linux-gnu)
+    nokogiri (1.19.2-x86_64-linux-gnu)
       racc (~> 1.4)
     parallel (1.27.0)
     parser (3.3.11.1)
@@ -227,4 +227,4 @@ DEPENDENCIES
   steep
 
 BUNDLED WITH
-   2.3.27
+  4.0.9
