@@ -14,8 +14,9 @@ module RbsDraper
 
     # @rbs @rbs_builder: RBS::DefinitionBuilder
 
-    #: (?Symbol name) ?{ (RakeTask) -> void } -> void
-    def initialize(name = :'rbs:draper', &block)
+    # @rbs name: Symbol
+    # @rbs &block: ?(RakeTask) -> void
+    def initialize(name = :'rbs:draper', &block) #: void
       super()
 
       @name = name
@@ -31,8 +32,7 @@ module RbsDraper
       define_setup_task
     end
 
-    #: () -> void
-    def define_setup_task
+    def define_setup_task #: void
       desc "Run all tasks of rbs_draper"
 
       deps = [:"#{name}:clean", :"#{name}:base_class:generate", :"#{name}:decoratables:generate",
@@ -40,16 +40,14 @@ module RbsDraper
       task("#{name}:setup": deps)
     end
 
-    #: () -> void
-    def define_clean_task
+    def define_clean_task #: void
       desc "Clean up generated RBS files"
       task("#{name}:clean": :environment) do
         sh "rm", "-rf", signature_root_dir.to_s
       end
     end
 
-    #: () -> void
-    def define_base_class_generate_task
+    def define_base_class_generate_task #: void
       desc "Generate RBS files for base classes"
       task("#{name}:base_class:generate": :environment) do
         require "rbs_draper" # load RbsDraper lazily
@@ -62,8 +60,7 @@ module RbsDraper
       end
     end
 
-    #: () -> void
-    def define_decoratables_generate_task
+    def define_decoratables_generate_task #: void
       desc "Generate RBS files for decoratable models"
       task("#{name}:decoratables:generate": :environment) do
         require "rbs_draper" # load RbsDraper lazily
@@ -79,8 +76,7 @@ module RbsDraper
       end
     end
 
-    #: () -> void
-    def define_decorators_generate_task
+    def define_decorators_generate_task #: void
       desc "Generate RBS files for decorators"
       task("#{name}:decorators:generate": :environment) do
         Rails.application.eager_load!
@@ -97,8 +93,7 @@ module RbsDraper
 
     private
 
-    #: () -> RBS::DefinitionBuilder
-    def rbs_builder
+    def rbs_builder #: RBS::DefinitionBuilder
       return @rbs_builder if @rbs_builder
 
       loader = RBS::CLI::LibraryOptions.new.loader

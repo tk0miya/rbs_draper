@@ -10,6 +10,7 @@ gem "rake", "~> 13.4"
 gem "rubocop", "~> 1.88"
 gem "rubocop-numbered-params"
 gem "rubocop-rake"
+gem "rubocop-rbs_inline"
 
 group :development do
   gem "rbs-inline", require: false

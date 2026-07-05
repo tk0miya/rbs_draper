@@ -4,7 +4,7 @@ require "rails"
 
 module RbsDraper
   class InstallGenerator < Rails::Generators::Base
-    def create_raketask
+    def create_raketask #: void
       create_file "lib/tasks/rbs_draper.rake", <<~RUBY
         begin
           # frozen_string_literal: true

@@ -4,8 +4,7 @@ require "draper"
 
 module RbsDraper
   module Decoratable
-    #: () -> Array[singleton(Draper::Decoratable)]
-    def self.all
+    def self.all #: Array[singleton(Draper::Decoratable)]
       ObjectSpace.each_object.select do |obj|
         obj.is_a?(Class) && obj < ::Draper::Decoratable && obj.decorator_class
       rescue StandardError
@@ -13,8 +12,8 @@ module RbsDraper
       end
     end
 
-    #: (singleton(Draper::Decoratable) klass) -> String
-    def self.class_to_rbs(klass)
+    # @rbs klass: singleton(Draper::Decoratable)
+    def self.class_to_rbs(klass) #: String
       Generator.new(klass).generate
     end
 
@@ -22,14 +21,13 @@ module RbsDraper
       attr_reader :klass #: singleton(Draper::Decoratable)
       attr_reader :klass_name #: String
 
-      #: (singleton(Draper::Decoratable) klass) -> void
-      def initialize(klass)
+      # @rbs klass: singleton(Draper::Decoratable)
+      def initialize(klass) #: void
         @klass = klass
         @klass_name = klass.name || ""
       end
 
-      #: () -> String
-      def generate
+      def generate #: String
         format <<~RBS
           #{header}
           #{method_decls}
@@ -39,16 +37,15 @@ module RbsDraper
 
       private
 
-      #: (String rbs) -> String
-      def format(rbs)
+      # @rbs rbs: String
+      def format(rbs) #: String
         parsed = RBS::Parser.parse_signature(rbs)
         StringIO.new.tap do |out|
           RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
         end.string
       end
 
-      #: () -> String
-      def header
+      def header #: String
         namespace = +""
         klass_name.split("::").map do |mod_name|
           namespace += "::#{mod_name}"
@@ -68,18 +65,15 @@ module RbsDraper
         end.join("\n")
       end
 
-      #: () -> String
-      def method_decls
+      def method_decls #: String
         "def decorate: () -> #{klass.decorator_class.name}"
       end
 
-      #: () -> String
-      def footer
+      def footer #: String
         "end\n" * klass.module_parents.size
       end
 
-      #: () -> Array[String]
-      def module_names
+      def module_names #: Array[String]
         klass.module_parents.reverse[1..].map do |mod|
           mod.name.split("::").last
         end

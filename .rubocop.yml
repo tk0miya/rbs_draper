@@ -4,12 +4,22 @@ AllCops:
 plugins:
   - rubocop-numbered-params
   - rubocop-rake
+  - rubocop-rbs_inline
 
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true
 
 Style/Documentation:
   Enabled: false
+
+Style/RbsInline/MissingTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RedundantTypeAnnotation:
+  EnforcedStyle: doc_style_and_return_annotation
+
+Style/RbsInline/RequireRbsInlineComment:
+  EnforcedStyle: never
 
 Style/StringLiterals:
   Enabled: true

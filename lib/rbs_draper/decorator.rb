@@ -8,8 +8,7 @@ module RbsDraper
     # @rbs klass: singleton(Draper::Decorator)
     # @rbs rbs_builder: RBS::DefinitionBuilder
     # @rbs decorated_class: singleton(Class)?
-    # @rbs return: String?
-    def self.class_to_rbs(klass, rbs_builder, decorated_class: nil)
+    def self.class_to_rbs(klass, rbs_builder, decorated_class: nil) #: String?
       Generator.new(klass, rbs_builder, decorated_class: decorated_class).generate
     end
 
@@ -26,16 +25,14 @@ module RbsDraper
       # @rbs klass: singleton(Draper::Decorator)
       # @rbs rbs_builder: RBS::DefinitionBuilder
       # @rbs decorated_class: singleton(Class)?
-      # @rbs return: void
-      def initialize(klass, rbs_builder, decorated_class: nil)
+      def initialize(klass, rbs_builder, decorated_class: nil) #: void
         @klass = klass
         @klass_name = klass.name || ""
         @rbs_builder = rbs_builder
         @decorated_class = decorated_class
       end
 
-      #: () -> String?
-      def generate
+      def generate #: String?
         return if decorated_class_def.blank?
 
         format <<~RBS
@@ -51,16 +48,15 @@ module RbsDraper
 
       private
 
-      #: (String rbs) -> String
-      def format(rbs)
+      # @rbs rbs: String
+      def format(rbs) #: String
         parsed = RBS::Parser.parse_signature(rbs)
         StringIO.new.tap do |out|
           RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
         end.string
       end
 
-      #: () -> String
-      def header
+      def header #: String
         namespace = +""
         klass_name.split("::").map do |mod_name|
           namespace += "::#{mod_name}"
@@ -80,18 +76,15 @@ module RbsDraper
         end.join("\n")
       end
 
-      #: () -> String?
-      def mixin_decls
+      def mixin_decls #: String?
         "extend Draper::Finders[#{decorated_class_name}]" if klass.singleton_class < Draper::Finders
       end
 
-      #: () -> String?
-      def class_method_decls
+      def class_method_decls #: String?
         "def self.decorate: (#{decorated_class_name} object, **untyped options) -> self"
       end
 
-      #: () -> String
-      def object_method_decls
+      def object_method_decls #: String
         if decorated_class_name.include?("::")
           <<~RBS
             def initialize: (#{decorated_class_name} object, **untyped options) -> void
@@ -106,8 +99,7 @@ module RbsDraper
         end
       end
 
-      #: () -> String?
-      def method_decls
+      def method_decls #: String?
         delegated_methods.filter_map do |name, method|
           next if user_defined_class&.methods&.fetch(name, nil)
 
@@ -115,33 +107,28 @@ module RbsDraper
         end.join("\n")
       end
 
-      #: () -> String
-      def footer
+      def footer #: String
         "end\n" * klass.module_parents.size
       end
 
-      #: () -> Array[String]
-      def module_names
+      def module_names #: Array[String]
         klass.module_parents.reverse[1..].map do |mod|
           mod.name.split("::").last
         end
       end
 
-      #: () -> RBS::Definition?
-      def decorated_class_def
+      def decorated_class_def #: RBS::Definition?
         type_name = RBS::TypeName.parse(decorated_class_name).absolute!
         @decorated_class_def ||= rbs_builder.build_instance(type_name)
       rescue StandardError
         nil
       end
 
-      #: () -> String
-      def decorated_class_name
+      def decorated_class_name #: String
         @decorated_class_name = decorated_class&.name || klass.object_class.name.to_s
       end
 
-      #: () -> Array[[Symbol, RBS::Definition::Method]]
-      def delegated_methods
+      def delegated_methods #: Array[[Symbol, RBS::Definition::Method]]
         return [] unless klass.ancestors.include? ::Draper::AutomaticDelegation
 
         decorated_klass = decorated_class_def
@@ -155,8 +142,7 @@ module RbsDraper
         end
       end
 
-      #: () -> RBS::Definition?
-      def user_defined_class
+      def user_defined_class #: RBS::Definition?
         type_name = RBS::TypeName.parse(klass.name.to_s).absolute!
         @user_defined_class ||= rbs_builder.build_instance(type_name)
       rescue StandardError
