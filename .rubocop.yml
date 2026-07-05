@@ -3,6 +3,7 @@ AllCops:
 
 plugins:
   - rubocop-numbered-params
+  - rubocop-rake
 
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true
