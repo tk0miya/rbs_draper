@@ -45,7 +45,7 @@ RSpec.describe RbsDraper::Decorator do
       RBS::DefinitionBuilder.new env: RBS::Environment.from_loader(loader).resolve_type_names
     end
 
-    context 'When a decorater without "delegate_all" given' do
+    context 'when a decorater without "delegate_all" given' do
       let(:klass) { AccountDecorator }
       let(:decorated_class) { nil }
       let(:expected) do
@@ -64,7 +64,7 @@ RSpec.describe RbsDraper::Decorator do
       end
     end
 
-    context 'When a decorater with "delegate_all" given' do
+    context 'when a decorater with "delegate_all" given' do
       let(:klass) { ArticleDecorator }
       let(:decorated_class) { nil }
       let(:expected) do
@@ -85,7 +85,7 @@ RSpec.describe RbsDraper::Decorator do
       end
     end
 
-    context "When a decorater having deep namespace given" do
+    context "when a decorater having deep namespace given" do
       let(:klass) { Mod::AccountDecorator }
       let(:decorated_class) { nil }
       let(:expected) do
@@ -105,7 +105,7 @@ RSpec.describe RbsDraper::Decorator do
       end
     end
 
-    context "When decorated_class argument given" do
+    context "when decorated_class argument given" do
       let(:klass) { ArticleDecorator }
       let(:decorated_class) { Account }
       let(:expected) do
@@ -126,7 +126,7 @@ RSpec.describe RbsDraper::Decorator do
       end
     end
 
-    context 'When a decorater with "delegates_finders" given' do
+    context 'when a decorater with "delegates_finders" given' do
       let(:klass) { ArticleFindersDecorator }
       let(:decorated_class) { nil }
       let(:expected) do
