@@ -1,23 +1,36 @@
+# Generated from lib/rbs_draper/rake_task.rb with RBS::Inline
+
 module RbsDraper
   class RakeTask < Rake::TaskLib
     attr_accessor name: Symbol
+
     attr_accessor signature_root_dir: Pathname
+
     attr_accessor mapping: ^() -> Hash[singleton(Class), singleton(Class)]
 
-    @name: Symbol
     @rbs_builder: RBS::DefinitionBuilder
-    @signature_root_dir: Pathname
-    @mapping: ^() -> Hash[singleton(Class), singleton(Class)]
 
+    # : (?Symbol name) ?{ (RakeTask) -> void } -> void
     def initialize: (?Symbol name) ?{ (RakeTask) -> void } -> void
+
+    # : () -> void
     def define_setup_task: () -> void
+
+    # : () -> void
     def define_clean_task: () -> void
+
+    # : () -> void
     def define_base_class_generate_task: () -> void
+
+    # : () -> void
     def define_decoratables_generate_task: () -> void
+
+    # : () -> void
     def define_decorators_generate_task: () -> void
 
     private
 
+    # : () -> RBS::DefinitionBuilder
     def rbs_builder: () -> RBS::DefinitionBuilder
   end
 end

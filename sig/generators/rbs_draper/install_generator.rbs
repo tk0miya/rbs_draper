@@ -1,0 +1,7 @@
+# Generated from lib/generators/rbs_draper/install_generator.rb with RBS::Inline
+
+module RbsDraper
+  class InstallGenerator < Rails::Generators::Base
+    def create_raketask: () -> untyped
+  end
+end

@@ -1,4 +1,6 @@
+# Generated from lib/rbs_draper.rb with RBS::Inline
+
 module RbsDraper
-  VERSION: String
-  # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+  class Error < StandardError
+  end
 end

@@ -17,6 +17,11 @@ namespace :rbs do
     sh "bundle exec rbs collection install --frozen"
   end
 
+  desc "Generate RBS files"
+  task :generate do
+    sh "rbs-inline", "--opt-out", "--output=sig", "lib"
+  end
+
   desc "Validate RBS files"
   task validate: "rbs:install" do
     sh "bundle exec rbs -Isig -Ilib/rbs_draper/sig validate"

@@ -1,33 +1,73 @@
+# Generated from lib/rbs_draper/decorator.rb with RBS::Inline
+
 module RbsDraper
   module Decorator
+    # @rbs klass: singleton(Draper::Decorator)
+    # @rbs rbs_builder: RBS::DefinitionBuilder
+    # @rbs decorated_class: singleton(Class)?
+    # @rbs return: String?
     def self.class_to_rbs: (singleton(Draper::Decorator) klass, RBS::DefinitionBuilder rbs_builder, ?decorated_class: singleton(Class)?) -> String?
 
     class Generator
       attr_reader klass: singleton(Draper::Decorator)
+
       attr_reader klass_name: String
+
       attr_reader rbs_builder: RBS::DefinitionBuilder
+
       attr_reader decorated_class: singleton(Class)?
 
-      @decorated_class_def: RBS::Definition
-      @decorated_class_name: String
       @user_defined_class: RBS::Definition
 
+      @decorated_class_name: String
+
+      @decorated_class_def: RBS::Definition
+
+      # @rbs klass: singleton(Draper::Decorator)
+      # @rbs rbs_builder: RBS::DefinitionBuilder
+      # @rbs decorated_class: singleton(Class)?
+      # @rbs return: void
       def initialize: (singleton(Draper::Decorator) klass, RBS::DefinitionBuilder rbs_builder, ?decorated_class: singleton(Class)?) -> void
+
+      # : () -> String?
       def generate: () -> String?
 
       private
 
+      # : (String rbs) -> String
       def format: (String rbs) -> String
+
+      # : () -> String
       def header: () -> String
+
+      # : () -> String?
       def mixin_decls: () -> String?
+
+      # : () -> String?
       def class_method_decls: () -> String?
+
+      # : () -> String
       def object_method_decls: () -> String
+
+      # : () -> String?
       def method_decls: () -> String?
+
+      # : () -> String
       def footer: () -> String
+
+      # : () -> Array[String]
       def module_names: () -> Array[String]
-      def decorated_class_name: () -> String
+
+      # : () -> RBS::Definition?
       def decorated_class_def: () -> RBS::Definition?
-      def delegated_methods: () -> Array[[Symbol, RBS::Definition::Method]]
+
+      # : () -> String
+      def decorated_class_name: () -> String
+
+      # : () -> Array[[Symbol, RBS::Definition::Method]]
+      def delegated_methods: () -> Array[[ Symbol, RBS::Definition::Method ]]
+
+      # : () -> RBS::Definition?
       def user_defined_class: () -> RBS::Definition?
     end
   end

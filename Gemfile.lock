@@ -135,6 +135,9 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
+    rbs-inline (0.14.0)
+      prism (>= 0.29)
+      rbs (~> 4.0)
     rdoc (6.7.0)
       psych (>= 4.0.0)
     regexp_parser (2.12.0)
@@ -217,6 +220,7 @@ DEPENDENCIES
   activerecord
   railties
   rake (~> 13.4)
+  rbs-inline
   rbs_draper!
   rspec
   rspec-daemon
