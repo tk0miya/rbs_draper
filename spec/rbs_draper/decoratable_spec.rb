@@ -14,7 +14,7 @@ RSpec.describe RbsDraper::Decoratable do
     subject { described_class.all }
 
     it "returns a list of decoratables" do
-      is_expected.to contain_exactly(Account, Article)
+      expect(subject).to contain_exactly(Account, Article)
     end
   end
 
