@@ -1,6 +1,9 @@
 AllCops:
   TargetRubyVersion: 3.2
 
+plugins:
+  - rubocop-numbered-params
+
 Layout/LeadingCommentSpace:
   AllowRBSInlineAnnotation: true
 
