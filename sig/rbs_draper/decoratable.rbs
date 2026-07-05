@@ -1,21 +1,39 @@
+# Generated from lib/rbs_draper/decoratable.rb with RBS::Inline
+
 module RbsDraper
   module Decoratable
+    # : () -> Array[singleton(Draper::Decoratable)]
     def self.all: () -> Array[singleton(Draper::Decoratable)]
+
+    # : (singleton(Draper::Decoratable) klass) -> String
     def self.class_to_rbs: (singleton(Draper::Decoratable) klass) -> String
 
     class Generator
       attr_reader klass: singleton(Draper::Decoratable)
+
       attr_reader klass_name: String
 
+      # : (singleton(Draper::Decoratable) klass) -> void
       def initialize: (singleton(Draper::Decoratable) klass) -> void
+
+      # : () -> String
       def generate: () -> String
 
       private
 
+      # : (String rbs) -> String
       def format: (String rbs) -> String
+
+      # : () -> String
       def header: () -> String
+
+      # : () -> String
       def method_decls: () -> String
+
+      # : () -> String
       def footer: () -> String
+
+      # : () -> Array[String]
       def module_names: () -> Array[String]
     end
   end

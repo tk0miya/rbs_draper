@@ -8,8 +8,13 @@ require "rake/tasklib"
 
 module RbsDraper
   class RakeTask < Rake::TaskLib
-    attr_accessor :name, :signature_root_dir, :mapping
+    attr_accessor :name #: Symbol
+    attr_accessor :signature_root_dir #: Pathname
+    attr_accessor :mapping #: ^() -> Hash[singleton(Class), singleton(Class)]
 
+    # @rbs @rbs_builder: RBS::DefinitionBuilder
+
+    #: (?Symbol name) ?{ (RakeTask) -> void } -> void
     def initialize(name = :'rbs:draper', &block)
       super()
 
@@ -26,6 +31,7 @@ module RbsDraper
       define_setup_task
     end
 
+    #: () -> void
     def define_setup_task
       desc "Run all tasks of rbs_draper"
 
@@ -34,6 +40,7 @@ module RbsDraper
       task("#{name}:setup": deps)
     end
 
+    #: () -> void
     def define_clean_task
       desc "Clean up generated RBS files"
       task("#{name}:clean": :environment) do
@@ -41,10 +48,11 @@ module RbsDraper
       end
     end
 
+    #: () -> void
     def define_base_class_generate_task
       desc "Generate RBS files for base classes"
       task("#{name}:base_class:generate": :environment) do
-        require "rbs_draper"  # load RbsDraper lazily
+        require "rbs_draper" # load RbsDraper lazily
 
         signature_root_dir.mkpath
 
@@ -54,10 +62,11 @@ module RbsDraper
       end
     end
 
+    #: () -> void
     def define_decoratables_generate_task
       desc "Generate RBS files for decoratable models"
       task("#{name}:decoratables:generate": :environment) do
-        require "rbs_draper"  # load RbsDraper lazily
+        require "rbs_draper" # load RbsDraper lazily
 
         Rails.application.eager_load!
 
@@ -70,6 +79,7 @@ module RbsDraper
       end
     end
 
+    #: () -> void
     def define_decorators_generate_task
       desc "Generate RBS files for decorators"
       task("#{name}:decorators:generate": :environment) do
@@ -87,6 +97,7 @@ module RbsDraper
 
     private
 
+    #: () -> RBS::DefinitionBuilder
     def rbs_builder
       return @rbs_builder if @rbs_builder
 

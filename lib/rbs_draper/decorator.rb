@@ -5,13 +5,28 @@ require "rbs"
 
 module RbsDraper
   module Decorator
+    # @rbs klass: singleton(Draper::Decorator)
+    # @rbs rbs_builder: RBS::DefinitionBuilder
+    # @rbs decorated_class: singleton(Class)?
+    # @rbs return: String?
     def self.class_to_rbs(klass, rbs_builder, decorated_class: nil)
       Generator.new(klass, rbs_builder, decorated_class: decorated_class).generate
     end
 
     class Generator
-      attr_reader :klass, :klass_name, :rbs_builder, :decorated_class
+      attr_reader :klass #: singleton(Draper::Decorator)
+      attr_reader :klass_name #: String
+      attr_reader :rbs_builder #: RBS::DefinitionBuilder
+      attr_reader :decorated_class #: singleton(Class)?
 
+      # @rbs @decorated_class_def: RBS::Definition
+      # @rbs @decorated_class_name: String
+      # @rbs @user_defined_class: RBS::Definition
+
+      # @rbs klass: singleton(Draper::Decorator)
+      # @rbs rbs_builder: RBS::DefinitionBuilder
+      # @rbs decorated_class: singleton(Class)?
+      # @rbs return: void
       def initialize(klass, rbs_builder, decorated_class: nil)
         @klass = klass
         @klass_name = klass.name || ""
@@ -19,6 +34,7 @@ module RbsDraper
         @decorated_class = decorated_class
       end
 
+      #: () -> String?
       def generate
         return if decorated_class_def.blank?
 
@@ -35,6 +51,7 @@ module RbsDraper
 
       private
 
+      #: (String rbs) -> String
       def format(rbs)
         parsed = RBS::Parser.parse_signature(rbs)
         StringIO.new.tap do |out|
@@ -42,6 +59,7 @@ module RbsDraper
         end.string
       end
 
+      #: () -> String
       def header
         namespace = +""
         klass_name.split("::").map do |mod_name|
@@ -62,14 +80,17 @@ module RbsDraper
         end.join("\n")
       end
 
+      #: () -> String?
       def mixin_decls
         "extend Draper::Finders[#{decorated_class_name}]" if klass.singleton_class < Draper::Finders
       end
 
+      #: () -> String?
       def class_method_decls
         "def self.decorate: (#{decorated_class_name} object, **untyped options) -> self"
       end
 
+      #: () -> String
       def object_method_decls
         if decorated_class_name.include?("::")
           <<~RBS
@@ -85,6 +106,7 @@ module RbsDraper
         end
       end
 
+      #: () -> String?
       def method_decls
         delegated_methods.filter_map do |name, method|
           next if user_defined_class&.methods&.fetch(name, nil)
@@ -93,16 +115,19 @@ module RbsDraper
         end.join("\n")
       end
 
+      #: () -> String
       def footer
         "end\n" * klass.module_parents.size
       end
 
+      #: () -> Array[String]
       def module_names
         klass.module_parents.reverse[1..].map do |mod|
           mod.name.split("::").last
         end
       end
 
+      #: () -> RBS::Definition?
       def decorated_class_def
         type_name = RBS::TypeName.parse(decorated_class_name).absolute!
         @decorated_class_def ||= rbs_builder.build_instance(type_name)
@@ -110,10 +135,12 @@ module RbsDraper
         nil
       end
 
+      #: () -> String
       def decorated_class_name
         @decorated_class_name = decorated_class&.name || klass.object_class.name.to_s
       end
 
+      #: () -> Array[[Symbol, RBS::Definition::Method]]
       def delegated_methods
         return [] unless klass.ancestors.include? ::Draper::AutomaticDelegation
 
@@ -128,6 +155,7 @@ module RbsDraper
         end
       end
 
+      #: () -> RBS::Definition?
       def user_defined_class
         type_name = RBS::TypeName.parse(klass.name.to_s).absolute!
         @user_defined_class ||= rbs_builder.build_instance(type_name)
