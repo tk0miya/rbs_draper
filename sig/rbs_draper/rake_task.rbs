@@ -10,27 +10,22 @@ module RbsDraper
 
     @rbs_builder: RBS::DefinitionBuilder
 
-    # : (?Symbol name) ?{ (RakeTask) -> void } -> void
+    # @rbs name: Symbol
+    # @rbs &block: ?(RakeTask) -> void
     def initialize: (?Symbol name) ?{ (RakeTask) -> void } -> void
 
-    # : () -> void
     def define_setup_task: () -> void
 
-    # : () -> void
     def define_clean_task: () -> void
 
-    # : () -> void
     def define_base_class_generate_task: () -> void
 
-    # : () -> void
     def define_decoratables_generate_task: () -> void
 
-    # : () -> void
     def define_decorators_generate_task: () -> void
 
     private
 
-    # : () -> RBS::DefinitionBuilder
     def rbs_builder: () -> RBS::DefinitionBuilder
   end
 end

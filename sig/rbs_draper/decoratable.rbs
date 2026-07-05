@@ -2,10 +2,9 @@
 
 module RbsDraper
   module Decoratable
-    # : () -> Array[singleton(Draper::Decoratable)]
     def self.all: () -> Array[singleton(Draper::Decoratable)]
 
-    # : (singleton(Draper::Decoratable) klass) -> String
+    # @rbs klass: singleton(Draper::Decoratable)
     def self.class_to_rbs: (singleton(Draper::Decoratable) klass) -> String
 
     class Generator
@@ -13,27 +12,22 @@ module RbsDraper
 
       attr_reader klass_name: String
 
-      # : (singleton(Draper::Decoratable) klass) -> void
+      # @rbs klass: singleton(Draper::Decoratable)
       def initialize: (singleton(Draper::Decoratable) klass) -> void
 
-      # : () -> String
       def generate: () -> String
 
       private
 
-      # : (String rbs) -> String
+      # @rbs rbs: String
       def format: (String rbs) -> String
 
-      # : () -> String
       def header: () -> String
 
-      # : () -> String
       def method_decls: () -> String
 
-      # : () -> String
       def footer: () -> String
 
-      # : () -> Array[String]
       def module_names: () -> Array[String]
     end
   end
