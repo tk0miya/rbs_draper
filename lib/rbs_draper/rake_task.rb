@@ -16,7 +16,7 @@ module RbsDraper
 
     # @rbs name: Symbol
     # @rbs &block: ?(RakeTask) -> void
-    def initialize(name = :'rbs:draper', &block) #: void
+    def initialize(name = :"rbs:draper", &block) #: void
       super()
 
       @name = name

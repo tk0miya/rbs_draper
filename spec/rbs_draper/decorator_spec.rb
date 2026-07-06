@@ -23,7 +23,7 @@ class ArticleDecorator < Draper::Decorator
 end
 
 module Mod
-  class Account
+  class Account # rubocop:disable Lint/EmptyClass
   end
 
   class AccountDecorator < Draper::Decorator
@@ -37,7 +37,7 @@ end
 
 RSpec.describe RbsDraper::Decorator do
   describe ".class_to_rbs" do
-    subject { described_class.class_to_rbs(klass, rbs_builder, decorated_class: decorated_class) }
+    subject { described_class.class_to_rbs(klass, rbs_builder, decorated_class:) }
 
     let(:rbs_builder) do
       loader = RBS::EnvironmentLoader.new

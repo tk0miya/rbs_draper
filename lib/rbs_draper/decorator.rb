@@ -9,7 +9,7 @@ module RbsDraper
     # @rbs rbs_builder: RBS::DefinitionBuilder
     # @rbs decorated_class: singleton(Class)?
     def self.class_to_rbs(klass, rbs_builder, decorated_class: nil) #: String?
-      Generator.new(klass, rbs_builder, decorated_class: decorated_class).generate
+      Generator.new(klass, rbs_builder, decorated_class:).generate
     end
 
     class Generator
@@ -52,7 +52,7 @@ module RbsDraper
       def format(rbs) #: String
         parsed = RBS::Parser.parse_signature(rbs)
         StringIO.new.tap do |out|
-          RBS::Writer.new(out: out).write(parsed[1] + parsed[2])
+          RBS::Writer.new(out:).write(parsed[1] + parsed[2])
         end.string
       end
 
@@ -103,7 +103,7 @@ module RbsDraper
         delegated_methods.filter_map do |name, method|
           next if user_defined_class&.methods&.fetch(name, nil)
 
-          "def #{name}: #{method.method_types.map(&:to_s).join(" | ")}"
+          "def #{name}: #{method.method_types.join(" | ")}"
         end.join("\n")
       end
 
