@@ -12,6 +12,7 @@ gem "rubocop-numbered-params"
 gem "rubocop-rake"
 gem "rubocop-rbs_inline"
 gem "rubocop-rspec"
+gem "rubocop-rspec-unused-let"
 
 group :development do
   gem "rbs-inline", require: false
