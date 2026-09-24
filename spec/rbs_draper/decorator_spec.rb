@@ -45,7 +45,7 @@ RSpec.describe RbsDraper::Decorator do
       RBS::DefinitionBuilder.new env: RBS::Environment.from_loader(loader).resolve_type_names
     end
 
-    context 'when a decorater without "delegate_all" given' do
+    context 'when a decorater without "delegate_all" given (shallow, top-level namespace)' do
       let(:klass) { AccountDecorator }
       let(:decorated_class) { nil }
       let(:expected) do
